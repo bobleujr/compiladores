@@ -40,7 +40,7 @@ public class ALGParser extends Parser {
 
     @Override
     public Result getResult(Task task) {
-        return new SJParserResult(snapshot, javaParser);
+        return new ALGParserResult(snapshot, javaParser);
     }
 
     @Override
@@ -55,12 +55,12 @@ public class ALGParser extends Parser {
     public void removeChangeListener(ChangeListener changeListener) {
     }
 
-    public static class SJParserResult extends Result {
+    public static class ALGParserResult extends Result {
 
         private JavaParser javaParser;
         private boolean valid = true;
 
-        SJParserResult(Snapshot snapshot, JavaParser javaParser) {
+        ALGParserResult(Snapshot snapshot, JavaParser javaParser) {
             super(snapshot);
             this.javaParser = javaParser;
         }
@@ -78,3 +78,6 @@ public class ALGParser extends Parser {
         }
     }
 }
+
+
+
