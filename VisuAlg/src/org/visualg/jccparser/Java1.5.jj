@@ -28,7 +28,7 @@
 
 options {
   JAVA_UNICODE_ESCAPE = true;
-  ERROR_REPORTING = false;
+  ERROR_REPORTING = true;
   STATIC = false;
   COMMON_TOKEN_ACTION = false;
   TOKEN_FACTORY = "MyToken";
@@ -38,6 +38,9 @@ options {
 PARSER_BEGIN(JavaParser)
 
 package org.visualg.jccparser;
+
+import java.io.*; 
+import java.util.*;
 
 /**
  * Grammar to parse Java version 1.5
@@ -215,63 +218,71 @@ MORE :
 
 /* RESERVED WORDS AND LITERALS */
 
+
 TOKEN :
 {
-  < ABSTRACT: "abstract" >
-| < ASSERT: "assert" >
-| < BOOLEAN: "boolean" >
-| < BREAK: "break" >
-| < BYTE: "byte" >
-| < CASE: "case" >
-| < CATCH: "catch" >
-| < CHAR: "char" >
-| < CLASS: "class" >
-| < CONST: "const" >
-| < CONTINUE: "continue" >
-| < _DEFAULT: "default" >
-| < DO: "do" >
-| < DOUBLE: "double" >
-| < ELSE: "else" >
-| < ENUM: "enum" >
-| < EXTENDS: "extends" >
-| < FALSE: "false" >
-| < FINAL: "final" >
-| < FINALLY: "finally" >
-| < FLOAT: "float" >
-| < FOR: "for" >
-| < GOTO: "goto" >
-| < IF: "if" >
-| < IMPLEMENTS: "implements" >
-| < IMPORT: "import" >
-| < INSTANCEOF: "instanceof" >
-| < INT: "int" >
-| < INTERFACE: "interface" >
-| < LONG: "long" >
-| < NATIVE: "native" >
-| < NEW: "new" >
-| < NULL: "null" >
-| < PACKAGE: "package">
-| < PRIVATE: "private" >
-| < PROTECTED: "protected" >
-| < PUBLIC: "public" >
-| < RETURN: "return" >
-| < SHORT: "short" >
-| < STATIC: "static" >
-| < STRICTFP: "strictfp" >
-| < SUPER: "super" >
-| < SWITCH: "switch" >
-| < SYNCHRONIZED: "synchronized" >
-| < THIS: "this" >
-| < THROW: "throw" >
-| < THROWS: "throws" >
-| < TRANSIENT: "transient" >
-| < TRUE: "true" >
-| < TRY: "try" >
-| < VOID: "void" >
-| < VOLATILE: "volatile" >
-| < WHILE: "while" >
+   < ALEATORIO:"aleatorio">
+|< ALGORITMO:"algoritmo">
+|< ARQUIVO:"arquivo">
+|< ASC:"asc">
+|< ATE:"ate">
+|< CARAC:"carac">
+|< CARACPNUM:"caracpnum">
+|< CARACTERE:"caractere">
+|< CASO:"caso">
+|< COMPR:"compr">
+|< COPIA:"copia">
+|< CRONOMETRO:"cronometro">
+|< DEBUG:"debug">
+|< E:"e">
+|< ECO:"eco">
+|< ENQUANTO:"enquanto">
+|< ENTAO:"entao">
+|< ESCOLHA:"escolha">
+|< ESCREVA:"escreva">
+|< ESCREVAL:"escreval">
+|< FACA:"faca">
+|< FALSO:"falso">
+|< FIMALGORITMO:"fimalgoritmo">
+|< FIMENQUANTO:"fimenquanto">
+|< FIMESCOLHA:"fimescolha">
+|< FIMFUNCAO:"fimfuncao">
+|< FIMPARA:"	fimpara">
+|< FIMPROCEDIMENT:"fimprocedimento">
+|< FIMREPITA:"fimrepita">
+|< FIMSE:"fimse">
+|< FUNCAO:"funcao">
+|< INICIO:"inicio">
+|< INT:"int">
+|< INTEIRO:"inteiro">
+|< INTERROMPA:"interrompa">
+|< LEIA:"	leia">
+|< LIMPATELA:"limpatela">
+|< LOGICO:"logico">
+|< MAIUSC:"maiusc">
+|< MINUSC:"minusc">
+|< MOD:"mod">
+|< NAO:"nao">
+|< NUMPCARAC:"numpcarac">
+|< OU:"ou">
+|< OUTROCASO:"outrocaso">
+|< PARA:"	para">
+|< PASSO:"passo">
+|< PAUSA:"pausa">
+|< POS:"pos">
+|< REAL:"real">
+|< PROCEDIMENTO:"procedimento">
+|< REPITA:"repita">
+|< RETORNE:"retorne">
+|< SE:"se">
+|< SENAO:"senao">
+|< TIMER:"timer">
+|< VAR:"var">
+|< VETOR:"vetor">
+|< VERDADEIRO:"verdadeiro">
+|< XOU:"xou">
+ 
 }
-
 /* LITERALS */
 
 TOKEN :
@@ -1065,220 +1076,49 @@ TOKEN :
 
 
 /*****************************************
- * THE JAVA LANGUAGE GRAMMAR STARTS HERE *
+ * THE VISUALG LANGUAGE GRAMMAR STARTS HERE *
  *****************************************/
 
 /*
  * Program structuring syntax follows.
  */
 
+/* void CompilationUnit():
+*{}
+*{
+*  [ LOOKAHEAD( ( Annotation() )* "package" ) PackageDeclaration() ]
+*  ( ImportDeclaration() )*
+*  ( TypeDeclaration() )+
+*  ( < "\u001a" > )?
+*  ( <STUFF_TO_IGNORE: ~[]> )?
+*  <EOF>
+*}
+*/
+
 void CompilationUnit():
 {}
 {
-  [ LOOKAHEAD( ( Annotation() )* "package" ) PackageDeclaration() ]
-  ( ImportDeclaration() )*
-  ( TypeDeclaration() )+
+  ( NomeAlgoritmo() )*
+  ( DeclararVariaveis() )+
   ( < "\u001a" > )?
   ( <STUFF_TO_IGNORE: ~[]> )?
   <EOF>
 }
 
-void PackageDeclaration():
+void NomeAlgoritmo():
 {}
 {
-  Modifiers() "package" Name() ";"
+  "algoritmo" "\"" Name() "\""
 }
 
-void ImportDeclaration():
+void DeclararVariaveis():
 {}
 {
-  "import" [ "static" ] Name() [ "." "*" ] ";"
-}
-
-/*
- * Modifiers. We match all modifiers in a single rule to reduce the chances of
- * syntax errors for simple modifier mistakes. It will also enable us to give
- * better error messages.
- */
-
-int Modifiers():
-{
-   int modifiers = 0;
-}
-{
- (
-  LOOKAHEAD(2)
-  (
-   "public" { modifiers |= ModifierSet.PUBLIC; }
-  |
-   "static" { modifiers |= ModifierSet.STATIC; }
-  |
-   "protected" { modifiers |= ModifierSet.PROTECTED; }
-  |
-   "private" { modifiers |= ModifierSet.PRIVATE; }
-  |
-   "final" { modifiers |= ModifierSet.FINAL; }
-  |
-   "abstract" { modifiers |= ModifierSet.ABSTRACT; }
-  |
-   "synchronized" { modifiers |= ModifierSet.SYNCHRONIZED; }
-  |
-   "native" { modifiers |= ModifierSet.NATIVE; }
-  |
-   "transient" { modifiers |= ModifierSet.TRANSIENT; }
-  |
-   "volatile" { modifiers |= ModifierSet.VOLATILE; }
-  |
-   "strictfp" { modifiers |= ModifierSet.STRICTFP; }
-  |
-   Annotation()
-  )
- )*
-
- {
-    return modifiers;
- }
-}
-
-/*
- * Declaration syntax follows.
- */
-void TypeDeclaration():
-{
-   int modifiers;
-}
-{
-  ";"
-|
-  modifiers = Modifiers()
-  (
-     ClassOrInterfaceDeclaration(modifiers)
-   |
-     EnumDeclaration(modifiers)
-   |
-     AnnotationTypeDeclaration(modifiers)
-  )
+  "var" 
+    [ Name() (","Name())* ] ":" Type()
 }
 
 
-void ClassOrInterfaceDeclaration(int modifiers):
-{
-   boolean isInterface = false;
-}
-{
-  ( "class" | "interface" { isInterface = true; } )
-  <IDENTIFIER>
-  [ TypeParameters() ]
-  [ ExtendsList(isInterface) ]
-  [ ImplementsList(isInterface) ]
-  ClassOrInterfaceBody(isInterface)
-}
-
-void ExtendsList(boolean isInterface):
-{
-   boolean extendsMoreThanOne = false;
-}
-{
-   "extends" ClassOrInterfaceType()
-   ( "," ClassOrInterfaceType() { extendsMoreThanOne = true; } )*
-   {
-      if (extendsMoreThanOne && !isInterface)
-         throw new ParseException("A class cannot extend more than one other class");
-   }
-}
-
-void ImplementsList(boolean isInterface):
-{}
-{
-   "implements" ClassOrInterfaceType()
-   ( "," ClassOrInterfaceType() )*
-   {
-      if (isInterface)
-         throw new ParseException("An interface cannot implement other interfaces");
-   }
-}
-
-void EnumDeclaration(int modifiers):
-{}
-{
-  "enum" <IDENTIFIER>
-  [ ImplementsList(false) ]
-  EnumBody()
-}
-
-void EnumBody():
-{}
-{
-   "{"
-   [ EnumConstant() ( LOOKAHEAD(2) "," EnumConstant() )* ]
-    [ "," ]
-   [ ";" ( ClassOrInterfaceBodyDeclaration(false) )* ]
-   "}"
-}
-
-void EnumConstant():
-{}
-{
-  Modifiers() <IDENTIFIER> [ Arguments() ] [ ClassOrInterfaceBody(false) ]
-}
-
-void TypeParameters():
-{}
-{
-   "<" TypeParameter() ( "," TypeParameter() )* ">"
-}
-
-void TypeParameter():
-{}
-{
-   <IDENTIFIER> [ TypeBound() ]
-}
-
-void TypeBound():
-{}
-{
-   "extends" ClassOrInterfaceType() ( "&" ClassOrInterfaceType() )*
-}
-
-void ClassOrInterfaceBody(boolean isInterface):
-{}
-{
-  "{" ( ClassOrInterfaceBodyDeclaration(isInterface) )* "}"
-}
-
-void ClassOrInterfaceBodyDeclaration(boolean isInterface):
-{
-   boolean isNestedInterface = false;
-   int modifiers;
-}
-{
-  LOOKAHEAD(2)
-  Initializer()
-  {
-     if (isInterface)
-        throw new ParseException("An interface cannot have initializers");
-  }
-|
-  modifiers = Modifiers() // Just get all the modifiers out of the way. If you want to do
-              // more checks, pass the modifiers down to the member
-  (
-      ClassOrInterfaceDeclaration(modifiers)
-    |
-      EnumDeclaration(modifiers)
-    |
-      LOOKAHEAD( [ TypeParameters() ] <IDENTIFIER> "(" )
-      ConstructorDeclaration()
-    |
-      LOOKAHEAD( Type() <IDENTIFIER> ( "[" "]" )* ( "," | "=" | ";" ) )
-      FieldDeclaration(modifiers)
-    |
-      MethodDeclaration(modifiers)
-    |
-      AnnotationTypeDeclaration(modifiers)
-  )
-|
-  ";"
-}
 
 void FieldDeclaration(int modifiers):
 {}
@@ -1290,86 +1130,16 @@ void FieldDeclaration(int modifiers):
 void VariableDeclarator():
 {}
 {
-  VariableDeclaratorId() [ "=" VariableInitializer() ]
+  VariableDeclaratorId() [ "<-" VariableDeclaratorId() ]
 }
 
 void VariableDeclaratorId():
 {}
 {
-  <IDENTIFIER> ( "[" "]" )*
+  <IDENTIFIER>
 }
 
-void VariableInitializer():
-{}
-{
-  ArrayInitializer()
-|
-  Expression()
-}
 
-void ArrayInitializer():
-{}
-{
-  "{" [ VariableInitializer() ( LOOKAHEAD(2) "," VariableInitializer() )* ] [ "," ] "}"
-}
-
-void MethodDeclaration(int modifiers):
-{}
-{
-  // Modifiers already matched in the caller!
-  [ TypeParameters() ]
-  ResultType()
-  MethodDeclarator() [ "throws" NameList() ]
-  ( Block() | ";" )
-}
-
-void MethodDeclarator():
-{}
-{
-  <IDENTIFIER> FormalParameters() ( "[" "]" )*
-}
-
-void FormalParameters():
-{}
-{
-  "(" [ FormalParameter() ( "," FormalParameter() )* ] ")"
-}
-
-void FormalParameter():
-{}
-{
-  // danson, added
-  //          [ "final" | Annotation() ]
-  // See Java Language Specification, 3rd Edition, section 8.4.1
-  Modifiers() [ "final" | Annotation() ] Type() [ "..." ] VariableDeclaratorId()
-}
-
-void ConstructorDeclaration():
-{}
-{
-  [ TypeParameters() ]
-  // Modifiers matched in the caller
-  <IDENTIFIER> FormalParameters() [ "throws" NameList() ]
-  "{"
-    [ LOOKAHEAD(ExplicitConstructorInvocation())
-         ExplicitConstructorInvocation()
-    ]
-    ( BlockStatement() )*
-  "}"
-}
-
-void ExplicitConstructorInvocation():
-{}
-{
-  ( <IDENTIFIER> "." )* [ LOOKAHEAD(2) "this" "." ]
-  [ TypeArguments() ] ("this"|"super") Arguments() ";"
-}
-
-void Initializer():
-{}
-{
-  [ "static" ] Block()
-}
 
 
 /*
@@ -1379,75 +1149,22 @@ void Initializer():
 void Type():
 {}
 {
-   LOOKAHEAD(2) ReferenceType()
- |
    PrimitiveType()
-}
-
-void ReferenceType():
-{}
-{
-   PrimitiveType() ( LOOKAHEAD(2) "[" "]" )+
-  |
-   ( ClassOrInterfaceType() ) ( LOOKAHEAD(2) "[" "]" )*
-}
-
-void ClassOrInterfaceType():
-{}
-{
-  <IDENTIFIER> [ LOOKAHEAD(2) TypeArguments() ]
-  ( LOOKAHEAD(2) "." <IDENTIFIER> [ LOOKAHEAD(2) TypeArguments() ] )*
-}
-
-void TypeArguments():
-{}
-{
-   "<" TypeArgument() ( "," TypeArgument() )* ">"
-}
-
-void TypeArgument():
-{}
-{
-   ReferenceType()
- |
-   "?" [ WildcardBounds() ]
-}
-
-void WildcardBounds():
-{}
-{
-   "extends" ReferenceType()
- |
-   "super" ReferenceType()
 }
 
 
 void PrimitiveType():
 {}
 {
-  "boolean"
+  "INTEIRO"
 |
-  "char"
+  "REAL"
 |
-  "byte"
+  "LÓGICO"
 |
-  "short"
+  "TEXTO"
 |
-  "int"
-|
-  "long"
-|
-  "float"
-|
-  "double"
-}
-
-void ResultType():
-{}
-{
-  "void"
-|
-  Type()
+  "CARACTERE"
 }
 
 void Name():
@@ -1458,8 +1175,6 @@ void Name():
 {}
 {
   <IDENTIFIER>
-  ( LOOKAHEAD(2) "." <IDENTIFIER>
-  )*
 }
 
 void NameList():
@@ -1468,646 +1183,3 @@ void NameList():
   Name() ( "," Name() )*
 }
 
-
-/*
- * Expression syntax follows.
- */
-
-void Expression():
-/*
- * This expansion has been written this way instead of:
- *   Assignment() | ConditionalExpression()
- * for performance reasons.
- * However, it is a weakening of the grammar for it allows the LHS of
- * assignments to be any conditional expression whereas it can only be
- * a primary expression.  Consider adding a semantic predicate to work
- * around this.
- */
-{}
-{
-  ConditionalExpression()
-  [
-    LOOKAHEAD(2)
-    AssignmentOperator() Expression()
-  ]
-}
-
-void AssignmentOperator():
-{}
-{
-  "=" | "*=" | "/=" | "%=" | "+=" | "-=" | "<<=" | ">>=" | ">>>=" | "&=" | "^=" | "|="
-}
-
-void ConditionalExpression():
-{}
-{
-  ConditionalOrExpression() [ "?" Expression() ":" Expression() ]
-}
-
-void ConditionalOrExpression():
-{}
-{
-  ConditionalAndExpression() ( "||" ConditionalAndExpression() )*
-}
-
-void ConditionalAndExpression():
-{}
-{
-  InclusiveOrExpression() ( "&&" InclusiveOrExpression() )*
-}
-
-void InclusiveOrExpression():
-{}
-{
-  ExclusiveOrExpression() ( "|" ExclusiveOrExpression() )*
-}
-
-void ExclusiveOrExpression():
-{}
-{
-  AndExpression() ( "^" AndExpression() )*
-}
-
-void AndExpression():
-{}
-{
-  EqualityExpression() ( "&" EqualityExpression() )*
-}
-
-void EqualityExpression():
-{}
-{
-  InstanceOfExpression() ( ( "==" | "!=" ) InstanceOfExpression() )*
-}
-
-void InstanceOfExpression():
-{}
-{
-  RelationalExpression() [ "instanceof" Type() ]
-}
-
-void RelationalExpression():
-{}
-{
-  ShiftExpression() ( ( "<" | ">" | "<=" | ">=" ) ShiftExpression() )*
-}
-
-void ShiftExpression():
-{}
-{
-  AdditiveExpression() ( ( "<<" | RSIGNEDSHIFT() | RUNSIGNEDSHIFT() ) AdditiveExpression() )*
-}
-
-void AdditiveExpression():
-{}
-{
-  MultiplicativeExpression() ( ( "+" | "-" ) MultiplicativeExpression() )*
-}
-
-void MultiplicativeExpression():
-{}
-{
-  UnaryExpression() ( ( "*" | "/" | "%" ) UnaryExpression() )*
-}
-
-void UnaryExpression():
-{}
-{
-  ( "+" | "-" ) UnaryExpression()
-|
-  PreIncrementExpression()
-|
-  PreDecrementExpression()
-|
-  UnaryExpressionNotPlusMinus()
-}
-
-void PreIncrementExpression():
-{}
-{
-  "++" PrimaryExpression()
-}
-
-void PreDecrementExpression():
-{}
-{
-  "--" PrimaryExpression()
-}
-
-void UnaryExpressionNotPlusMinus():
-{}
-{
-  ( "~" | "!" ) UnaryExpression()
-|
-  LOOKAHEAD( CastLookahead() )
-  CastExpression()
-|
-  PostfixExpression()
-}
-
-// This production is to determine lookahead only.  The LOOKAHEAD specifications
-// below are not used, but they are there just to indicate that we know about
-// this.
-void CastLookahead():
-{}
-{
-  LOOKAHEAD(2)
-  "(" PrimitiveType()
-|
-  LOOKAHEAD("(" Type() "[")
-  "(" Type() "[" "]"
-|
-  "(" Type() ")" ( "~" | "!" | "(" | <IDENTIFIER> | "this" | "super" | "new" | Literal() )
-}
-
-void PostfixExpression():
-{}
-{
-  PrimaryExpression() [ "++" | "--" ]
-}
-
-void CastExpression():
-{}
-{
-  LOOKAHEAD("(" PrimitiveType())
-  "(" Type() ")" UnaryExpression()
-|
-  "(" Type() ")" UnaryExpressionNotPlusMinus()
-}
-
-void PrimaryExpression():
-{}
-{
-  PrimaryPrefix() ( LOOKAHEAD(2) PrimarySuffix() )*
-}
-
-void MemberSelector():
-{}
-{
-  "." TypeArguments() <IDENTIFIER>
-}
-
-void PrimaryPrefix():
-{}
-{
-  Literal()
-|
-  LOOKAHEAD( ( <IDENTIFIER> "." )* "this" )
-  ( <IDENTIFIER> "." )*
-  "this"
-|
-  "super" "." <IDENTIFIER>
-|
-   // danson, added this part to support a construct like:
-   //   Buffer.super.setDirty(true);
-   // See Java Language Specification, 3rd edition, section 15.11.2.
-   LOOKAHEAD( ClassOrInterfaceType() "." "super" "." <IDENTIFIER> )
-   ClassOrInterfaceType() "." "super" "." <IDENTIFIER>
-|
-  "(" Expression() ")"
-|
-  AllocationExpression()
-|
-  LOOKAHEAD( ResultType() "." "class" )
-  ResultType() "." "class"
-|
-  Name()
-}
-
-void PrimarySuffix():
-{}
-{
-  LOOKAHEAD("." "super" ".")
-  "." "super"
-|
-  LOOKAHEAD("." "this")
-  "." "this"
-|
-  LOOKAHEAD(2)
-  "." AllocationExpression()
-|
-  LOOKAHEAD(3)
-  MemberSelector()
-|
-  "[" Expression() "]"
-|
-  "." <IDENTIFIER>
-|
-  Arguments()
-}
-
-void Literal():
-{}
-{
-  <INTEGER_LITERAL>
-|
-  <FLOATING_POINT_LITERAL>
-|
-  <CHARACTER_LITERAL>
-|
-  <STRING_LITERAL>
-|
-  BooleanLiteral()
-|
-  NullLiteral()
-}
-
-void BooleanLiteral():
-{}
-{
-  "true"
-|
-  "false"
-}
-
-void NullLiteral():
-{}
-{
-  "null"
-}
-
-void Arguments():
-{}
-{
-  "(" [ ArgumentList() ] ")"
-}
-
-void ArgumentList():
-{}
-{
-  Expression() ( "," Expression() )*
-}
-
-void AllocationExpression():
-{}
-{
-  LOOKAHEAD(2)
-  "new" PrimitiveType() ArrayDimsAndInits()
-|
-  "new" ClassOrInterfaceType() [ TypeArguments() ]
-    (
-      ArrayDimsAndInits()
-    |
-      Arguments() [ ClassOrInterfaceBody(false) ]
-    )
-}
-
-/*
- * The third LOOKAHEAD specification below is to parse to PrimarySuffix
- * if there is an expression between the "[...]".
- */
-void ArrayDimsAndInits():
-{}
-{
-  LOOKAHEAD(2)
-  ( LOOKAHEAD(2) "[" Expression() "]" )+ ( LOOKAHEAD(2) "[" "]" )*
-|
-  ( "[" "]" )+ ArrayInitializer()
-}
-
-
-/*
- * Statement syntax follows.
- */
-
-void Statement():
-{}
-{
-  LOOKAHEAD(2)
-  LabeledStatement()
-|
-  AssertStatement()
-|
-  Block()
-|
-  EmptyStatement()
-|
-  StatementExpression() ";"
-|
-  SwitchStatement()
-|
-  IfStatement()
-|
-  WhileStatement()
-|
-  DoStatement()
-|
-  ForStatement()
-|
-  BreakStatement()
-|
-  ContinueStatement()
-|
-  ReturnStatement()
-|
-  ThrowStatement()
-|
-  SynchronizedStatement()
-|
-  TryStatement()
-}
-
-void AssertStatement():
-{}
-{
-  "assert" Expression() [ ":" Expression() ] ";"
-}
-
-void LabeledStatement():
-{}
-{
-  <IDENTIFIER> ":" Statement()
-}
-
-void Block():
-{}
-{
-  "{" ( BlockStatement() )* "}"
-}
-
-void BlockStatement():
-{}
-{
-  LOOKAHEAD( Modifiers() Type() <IDENTIFIER> )
-  LocalVariableDeclaration() ";"
-|
-  Statement()
-|
-  ClassOrInterfaceDeclaration(0)
-}
-
-void LocalVariableDeclaration():
-{}
-{
-  Modifiers() Type() VariableDeclarator() ( "," VariableDeclarator() )*
-}
-
-void EmptyStatement():
-{}
-{
-  ";"
-}
-
-void StatementExpression():
-/*
- * The last expansion of this production accepts more than the legal
- * Java expansions for StatementExpression.  This expansion does not
- * use PostfixExpression for performance reasons.
- */
-{}
-{
-  PreIncrementExpression()
-|
-  PreDecrementExpression()
-|
-  PrimaryExpression()
-  [
-    "++"
-  |
-    "--"
-  |
-    AssignmentOperator() Expression()
-  ]
-}
-
-void SwitchStatement():
-{}
-{
-  "switch" "(" Expression() ")" "{"
-    ( SwitchLabel() ( BlockStatement() )* )*
-  "}"
-}
-
-void SwitchLabel():
-{}
-{
-  "case" Expression() ":"
-|
-  "default" ":"
-}
-
-void IfStatement():
-/*
- * The disambiguating algorithm of JavaCC automatically binds dangling
- * else's to the innermost if statement.  The LOOKAHEAD specification
- * is to tell JavaCC that we know what we are doing.
- */
-{}
-{
-  "if" "(" Expression() ")" Statement() [ LOOKAHEAD(1) "else" Statement() ]
-}
-
-void WhileStatement():
-{}
-{
-  "while" "(" Expression() ")" Statement()
-}
-
-void DoStatement():
-{}
-{
-  "do" Statement() "while" "(" Expression() ")" ";"
-}
-
-void ForStatement():
-{}
-{
-  "for" "("
-
-  (
-      LOOKAHEAD(Modifiers() Type() <IDENTIFIER> ":")
-      Modifiers() Type() <IDENTIFIER> ":" Expression()
-    |
-     [ ForInit() ] ";" [ Expression() ] ";" [ ForUpdate() ]
-  )
-
-  ")" Statement()
-}
-
-void ForInit():
-{}
-{
-  LOOKAHEAD( Modifiers() Type() <IDENTIFIER> )
-  LocalVariableDeclaration()
-|
-  StatementExpressionList()
-}
-
-void StatementExpressionList():
-{}
-{
-  StatementExpression() ( "," StatementExpression() )*
-}
-
-void ForUpdate():
-{}
-{
-  StatementExpressionList()
-}
-
-void BreakStatement():
-{}
-{
-  "break" [ <IDENTIFIER> ] ";"
-}
-
-void ContinueStatement():
-{}
-{
-  "continue" [ <IDENTIFIER> ] ";"
-}
-
-void ReturnStatement():
-{}
-{
-  "return" [ Expression() ] ";"
-}
-
-void ThrowStatement():
-{}
-{
-  "throw" Expression() ";"
-}
-
-void SynchronizedStatement():
-{}
-{
-  "synchronized" "(" Expression() ")" Block()
-}
-
-void TryStatement():
-/*
- * Semantic check required here to make sure that at least one
- * finally/catch is present.
- */
-{}
-{
-  "try" Block()
-  ( "catch" "(" FormalParameter() ")" Block() )*
-  [ "finally" Block() ]
-}
-
-/* We use productions to match >>>, >> and > so that we can keep the
- * type declaration syntax with generics clean
- */
-
-void RUNSIGNEDSHIFT():
-{}
-{
-  ( LOOKAHEAD({ getToken(1).kind == GT &&
-                ((MyToken)getToken(1)).realKind == RUNSIGNEDSHIFT} )
-   ">" ">" ">"
-  )
-}
-
-void RSIGNEDSHIFT():
-{}
-{
-  ( LOOKAHEAD({ getToken(1).kind == GT &&
-                ((MyToken)getToken(1)).realKind == RSIGNEDSHIFT} )
-  ">" ">"
-  )
-}
-
-/* Annotation syntax follows. */
-
-void Annotation():
-{}
-{
-   LOOKAHEAD( "@" Name() "(" ( <IDENTIFIER> "=" | ")" ))
-   NormalAnnotation()
- |
-   LOOKAHEAD( "@" Name() "(" )
-   SingleMemberAnnotation()
- |
-   MarkerAnnotation()
-}
-
-void NormalAnnotation():
-{}
-{
-   "@" Name() "(" [ MemberValuePairs() ] ")"
-}
-
-void MarkerAnnotation():
-{}
-{
-  "@" Name()
-}
-
-void SingleMemberAnnotation():
-{}
-{
-  "@" Name() "(" MemberValue() ")"
-}
-
-void MemberValuePairs():
-{}
-{
-   MemberValuePair() ( "," MemberValuePair() )*
-}
-
-void MemberValuePair():
-{}
-{
-    <IDENTIFIER> "=" MemberValue()
-}
-
-void MemberValue():
-{}
-{
-   Annotation()
- |
-   MemberValueArrayInitializer()
- |
-   ConditionalExpression()
-}
-
-void  MemberValueArrayInitializer():
-{}
-{
-  "{" (MemberValue() ( LOOKAHEAD(2) "," MemberValue() )* [ "," ])? "}"
-}
-
-
-/* Annotation Types. */
-
-void AnnotationTypeDeclaration(int modifiers):
-{}
-{
-  "@" "interface" <IDENTIFIER> AnnotationTypeBody()
-}
-
-void AnnotationTypeBody():
-{}
-{
-  "{" ( AnnotationTypeMemberDeclaration() )* "}"
-}
-
-void AnnotationTypeMemberDeclaration():
-{
-   int modifiers;
-}
-{
- modifiers = Modifiers()
- (
-   LOOKAHEAD(Type() <IDENTIFIER> "(")
-   Type() <IDENTIFIER> "(" ")" [ DefaultValue() ] ";"
-  |
-   ClassOrInterfaceDeclaration(modifiers)
-  |
-   EnumDeclaration(modifiers)
-  |
-   AnnotationTypeDeclaration(modifiers)
-  |
-   FieldDeclaration(modifiers)
- )
- |
-   ( ";" )
-}
-
-void DefaultValue():
-{}
-{
-  "default" MemberValue()
-}
