@@ -21,6 +21,7 @@ import org.netbeans.modules.parsing.spi.Parser.Result;
 import org.netbeans.modules.parsing.spi.SourceModificationEvent;
 import org.visualg.jccparser.JavaParser;
 
+
 public class ALGParser extends Parser {
 
     private Snapshot snapshot;
@@ -55,7 +56,7 @@ public class ALGParser extends Parser {
     public void removeChangeListener(ChangeListener changeListener) {
     }
 
-    public static class ALGParserResult extends Result {
+    public static class ALGParserResult extends Parser.Result {
 
         private JavaParser javaParser;
         private boolean valid = true;
@@ -77,7 +78,5 @@ public class ALGParser extends Parser {
             valid = false;
         }
     }
+
 }
-
-
-

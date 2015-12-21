@@ -1,0 +1,205 @@
+
+PARSER_BEGIN(Parser) 
+
+ 
+package org.visualg.jccparser;
+
+
+// Needed for the array list class
+import java.util.*;
+
+public class Parser {
+    public JavaParser(String fileName)
+    {
+        this(System.in);
+        try { ReInit(new FileInputStream(new File(fileName))); }
+        catch(Exception e) { e.printStackTrace(); }
+    }
+    public static void main(String[] args) throws ParseException, TokenMgrError {
+        // Create a new parser and feed it the standard input
+        Parser parser = new Parser(System.in);
+        try {
+            parser.parse();
+        }
+        catch(TokenMgrError e) {
+            System.err.println("[LEXING ERROR] Invalid character");
+            System.exit(0);
+        }
+        catch(ParseException e) {
+            System.err.println("[PARSING EXCEPTION] Invalid Input");
+            System.exit(0);
+        }
+        
+    }    
+}
+PARSER_END(Parser)
+
+// Things we want to ignore (white space)
+SKIP:
+{
+    " " |
+    "\n" |
+    "\r" |
+    "\t" 
+}
+
+// The tokens for our language
+TOKEN :
+{
+   < ALEATORIO:"aleatorio">
+|< ALGORITMO:"algoritmo">
+|< ARQUIVO:"arquivo">
+|< ASC:"asc">
+|< ATE:"ate">
+|< CARAC:"carac">
+|< CARACPNUM:"caracpnum">
+|< CARACTERE:"caractere">
+|< CASO:"caso">
+|< COMPR:"compr">
+|< COPIA:"copia">
+|< CRONOMETRO:"cronometro">
+|< DEBUG:"debug">
+|< E:"e">
+|< ECO:"eco">
+|< ENQUANTO:"enquanto">
+|< ENTAO:"entao">
+|< ESCOLHA:"escolha">
+|< ESCREVA:"escreva">
+|< ESCREVAL:"escreval">
+|< FACA:"faca">
+|< FALSO:"falso">
+|< FIMALGORITMO:"fimalgoritmo">
+|< FIMENQUANTO:"fimenquanto">
+|< FIMESCOLHA:"fimescolha">
+|< FIMFUNCAO:"fimfuncao">
+|< FIMPARA:"	fimpara">
+|< FIMPROCEDIMENT:"fimprocedimento">
+|< FIMREPITA:"fimrepita">
+|< FIMSE:"fimse">
+|< FUNCAO:"funcao">
+|< INICIO:"inicio">
+|< INT:"int">
+|< INTEIRO:"inteiro">
+|< INTERROMPA:"interrompa">
+|< LEIA:"	leia">
+|< LIMPATELA:"limpatela">
+|< LOGICO:"logico">
+|< MAIUSC:"maiusc">
+|< MINUSC:"minusc">
+|< MOD:"mod">
+|< NAO:"nao">
+|< NUMPCARAC:"numpcarac">
+|< OU:"ou">
+|< OUTROCASO:"outrocaso">
+|< PARA:"	para">
+|< PASSO:"passo">
+|< PAUSA:"pausa">
+|< POS:"pos">
+|< REAL:"real">
+|< PROCEDIMENTO:"procedimento">
+|< REPITA:"repita">
+|< RETORNE:"retorne">
+|< SE:"se">
+|< SENAO:"senao">
+|< TIMER:"timer">
+|< VAR:"var">
+|< VETOR:"vetor">
+|< VERDADEIRO:"verdadeiro">
+|< XOU:"xou">
+ 
+}
+
+
+/* IDENTIFIERS */
+
+TOKEN :
+{
+  < IDENTIFIER: <LETTER> (<PART_LETTER>)* >
+|
+  < #LETTER:
+      [  // all chars for which Character.isIdentifierStart is true
+         "$",
+         "A"-"Z",
+         "_",
+         "a"-"z"
+      ]
+  >
+|
+  < #PART_LETTER:
+      [  // all chars for which Character.isIdentifierPart is true
+         "$",
+         "0"-"9",
+         "A"-"Z",
+         "_",
+         "a"-"z"
+      ]
+  >
+}
+
+
+/*****************************************
+ * THE VISUALG LANGUAGE GRAMMAR STARTS HERE *
+ *****************************************/
+
+/*
+ * Program structuring syntax follows.
+ */
+
+void CompilationUnit() throws ParseException:
+{}
+{
+  ( NomeAlgoritmo() )
+  ( DeclararVariaveis() )
+  <EOF>
+}
+
+void NomeAlgoritmo():
+{}
+{
+  "algoritmo" "\"" Name() "\""
+}
+
+void DeclararVariaveis():
+{}
+{
+  "var" 
+    NameList() ":" Type()
+}
+
+void Name():
+/*
+ * A lookahead of 2 is required below since "Name" can be followed
+ * by a ".*" when used in the context of an "ImportDeclaration".
+ */
+{}
+{
+  <IDENTIFIER>
+}
+
+void NameList():
+{}
+{
+  Name() ( "," Name() )*
+}
+
+void Type():
+{}
+{
+   PrimitiveType()
+}
+
+
+void PrimitiveType():
+{}
+{
+  "INTEIRO"
+|
+  "REAL"
+|
+  "LÓGICO"
+|
+  "TEXTO"
+|
+  "CARACTERE"
+}
+

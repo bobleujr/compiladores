@@ -17,237 +17,251 @@ public interface JavaParserConstants {
   /** RegularExpression Id. */
   int MULTI_LINE_COMMENT = 10;
   /** RegularExpression Id. */
-  int ABSTRACT = 12;
+  int ALEATORIO = 12;
   /** RegularExpression Id. */
-  int ASSERT = 13;
+  int ALGORITMO = 13;
   /** RegularExpression Id. */
-  int BOOLEAN = 14;
+  int ARQUIVO = 14;
   /** RegularExpression Id. */
-  int BREAK = 15;
+  int ASC = 15;
   /** RegularExpression Id. */
-  int BYTE = 16;
+  int ATE = 16;
   /** RegularExpression Id. */
-  int CASE = 17;
+  int CARAC = 17;
   /** RegularExpression Id. */
-  int CATCH = 18;
+  int CARACPNUM = 18;
   /** RegularExpression Id. */
-  int CHAR = 19;
+  int CARACTERE = 19;
   /** RegularExpression Id. */
-  int CLASS = 20;
+  int CASO = 20;
   /** RegularExpression Id. */
-  int CONST = 21;
+  int COMPR = 21;
   /** RegularExpression Id. */
-  int CONTINUE = 22;
+  int COPIA = 22;
   /** RegularExpression Id. */
-  int _DEFAULT = 23;
+  int CRONOMETRO = 23;
   /** RegularExpression Id. */
-  int DO = 24;
+  int DEBUG = 24;
   /** RegularExpression Id. */
-  int DOUBLE = 25;
+  int E = 25;
   /** RegularExpression Id. */
-  int ELSE = 26;
+  int ECO = 26;
   /** RegularExpression Id. */
-  int ENUM = 27;
+  int ENQUANTO = 27;
   /** RegularExpression Id. */
-  int EXTENDS = 28;
+  int ENTAO = 28;
   /** RegularExpression Id. */
-  int FALSE = 29;
+  int ESCOLHA = 29;
   /** RegularExpression Id. */
-  int FINAL = 30;
+  int ESCREVA = 30;
   /** RegularExpression Id. */
-  int FINALLY = 31;
+  int ESCREVAL = 31;
   /** RegularExpression Id. */
-  int FLOAT = 32;
+  int FACA = 32;
   /** RegularExpression Id. */
-  int FOR = 33;
+  int FALSO = 33;
   /** RegularExpression Id. */
-  int GOTO = 34;
+  int FIMALGORITMO = 34;
   /** RegularExpression Id. */
-  int IF = 35;
+  int FIMENQUANTO = 35;
   /** RegularExpression Id. */
-  int IMPLEMENTS = 36;
+  int FIMESCOLHA = 36;
   /** RegularExpression Id. */
-  int IMPORT = 37;
+  int FIMFUNCAO = 37;
   /** RegularExpression Id. */
-  int INSTANCEOF = 38;
+  int FIMPARA = 38;
   /** RegularExpression Id. */
-  int INT = 39;
+  int FIMPROCEDIMENT = 39;
   /** RegularExpression Id. */
-  int INTERFACE = 40;
+  int FIMREPITA = 40;
   /** RegularExpression Id. */
-  int LONG = 41;
+  int FIMSE = 41;
   /** RegularExpression Id. */
-  int NATIVE = 42;
+  int FUNCAO = 42;
   /** RegularExpression Id. */
-  int NEW = 43;
+  int INICIO = 43;
   /** RegularExpression Id. */
-  int NULL = 44;
+  int INT = 44;
   /** RegularExpression Id. */
-  int PACKAGE = 45;
+  int INTEIRO = 45;
   /** RegularExpression Id. */
-  int PRIVATE = 46;
+  int INTERROMPA = 46;
   /** RegularExpression Id. */
-  int PROTECTED = 47;
+  int LEIA = 47;
   /** RegularExpression Id. */
-  int PUBLIC = 48;
+  int LIMPATELA = 48;
   /** RegularExpression Id. */
-  int RETURN = 49;
+  int LOGICO = 49;
   /** RegularExpression Id. */
-  int SHORT = 50;
+  int MAIUSC = 50;
   /** RegularExpression Id. */
-  int STATIC = 51;
+  int MINUSC = 51;
   /** RegularExpression Id. */
-  int STRICTFP = 52;
+  int MOD = 52;
   /** RegularExpression Id. */
-  int SUPER = 53;
+  int NAO = 53;
   /** RegularExpression Id. */
-  int SWITCH = 54;
+  int NUMPCARAC = 54;
   /** RegularExpression Id. */
-  int SYNCHRONIZED = 55;
+  int OU = 55;
   /** RegularExpression Id. */
-  int THIS = 56;
+  int OUTROCASO = 56;
   /** RegularExpression Id. */
-  int THROW = 57;
+  int PARA = 57;
   /** RegularExpression Id. */
-  int THROWS = 58;
+  int PASSO = 58;
   /** RegularExpression Id. */
-  int TRANSIENT = 59;
+  int PAUSA = 59;
   /** RegularExpression Id. */
-  int TRUE = 60;
+  int POS = 60;
   /** RegularExpression Id. */
-  int TRY = 61;
+  int REAL = 61;
   /** RegularExpression Id. */
-  int VOID = 62;
+  int PROCEDIMENTO = 62;
   /** RegularExpression Id. */
-  int VOLATILE = 63;
+  int REPITA = 63;
   /** RegularExpression Id. */
-  int WHILE = 64;
+  int RETORNE = 64;
   /** RegularExpression Id. */
-  int INTEGER_LITERAL = 65;
+  int SE = 65;
   /** RegularExpression Id. */
-  int DECIMAL_LITERAL = 66;
+  int SENAO = 66;
   /** RegularExpression Id. */
-  int HEX_LITERAL = 67;
+  int TIMER = 67;
   /** RegularExpression Id. */
-  int OCTAL_LITERAL = 68;
+  int VAR = 68;
   /** RegularExpression Id. */
-  int FLOATING_POINT_LITERAL = 69;
+  int VETOR = 69;
   /** RegularExpression Id. */
-  int DECIMAL_FLOATING_POINT_LITERAL = 70;
+  int VERDADEIRO = 70;
   /** RegularExpression Id. */
-  int DECIMAL_EXPONENT = 71;
+  int XOU = 71;
   /** RegularExpression Id. */
-  int HEXADECIMAL_FLOATING_POINT_LITERAL = 72;
+  int INTEGER_LITERAL = 72;
   /** RegularExpression Id. */
-  int HEXADECIMAL_EXPONENT = 73;
+  int DECIMAL_LITERAL = 73;
   /** RegularExpression Id. */
-  int CHARACTER_LITERAL = 74;
+  int HEX_LITERAL = 74;
   /** RegularExpression Id. */
-  int STRING_LITERAL = 75;
+  int OCTAL_LITERAL = 75;
   /** RegularExpression Id. */
-  int IDENTIFIER = 76;
+  int FLOATING_POINT_LITERAL = 76;
   /** RegularExpression Id. */
-  int LETTER = 77;
+  int DECIMAL_FLOATING_POINT_LITERAL = 77;
   /** RegularExpression Id. */
-  int PART_LETTER = 78;
+  int DECIMAL_EXPONENT = 78;
   /** RegularExpression Id. */
-  int LPAREN = 79;
+  int HEXADECIMAL_FLOATING_POINT_LITERAL = 79;
   /** RegularExpression Id. */
-  int RPAREN = 80;
+  int HEXADECIMAL_EXPONENT = 80;
   /** RegularExpression Id. */
-  int LBRACE = 81;
+  int CHARACTER_LITERAL = 81;
   /** RegularExpression Id. */
-  int RBRACE = 82;
+  int STRING_LITERAL = 82;
   /** RegularExpression Id. */
-  int LBRACKET = 83;
+  int IDENTIFIER = 83;
   /** RegularExpression Id. */
-  int RBRACKET = 84;
+  int LETTER = 84;
   /** RegularExpression Id. */
-  int SEMICOLON = 85;
+  int PART_LETTER = 85;
   /** RegularExpression Id. */
-  int COMMA = 86;
+  int LPAREN = 86;
   /** RegularExpression Id. */
-  int DOT = 87;
+  int RPAREN = 87;
   /** RegularExpression Id. */
-  int AT = 88;
+  int LBRACE = 88;
   /** RegularExpression Id. */
-  int ASSIGN = 89;
+  int RBRACE = 89;
   /** RegularExpression Id. */
-  int LT = 90;
+  int LBRACKET = 90;
   /** RegularExpression Id. */
-  int BANG = 91;
+  int RBRACKET = 91;
   /** RegularExpression Id. */
-  int TILDE = 92;
+  int SEMICOLON = 92;
   /** RegularExpression Id. */
-  int HOOK = 93;
+  int COMMA = 93;
   /** RegularExpression Id. */
-  int COLON = 94;
+  int DOT = 94;
   /** RegularExpression Id. */
-  int EQ = 95;
+  int AT = 95;
   /** RegularExpression Id. */
-  int LE = 96;
+  int ASSIGN = 96;
   /** RegularExpression Id. */
-  int GE = 97;
+  int LT = 97;
   /** RegularExpression Id. */
-  int NE = 98;
+  int BANG = 98;
   /** RegularExpression Id. */
-  int SC_OR = 99;
+  int TILDE = 99;
   /** RegularExpression Id. */
-  int SC_AND = 100;
+  int HOOK = 100;
   /** RegularExpression Id. */
-  int INCR = 101;
+  int COLON = 101;
   /** RegularExpression Id. */
-  int DECR = 102;
+  int EQ = 102;
   /** RegularExpression Id. */
-  int PLUS = 103;
+  int LE = 103;
   /** RegularExpression Id. */
-  int MINUS = 104;
+  int GE = 104;
   /** RegularExpression Id. */
-  int STAR = 105;
+  int NE = 105;
   /** RegularExpression Id. */
-  int SLASH = 106;
+  int SC_OR = 106;
   /** RegularExpression Id. */
-  int BIT_AND = 107;
+  int SC_AND = 107;
   /** RegularExpression Id. */
-  int BIT_OR = 108;
+  int INCR = 108;
   /** RegularExpression Id. */
-  int XOR = 109;
+  int DECR = 109;
   /** RegularExpression Id. */
-  int REM = 110;
+  int PLUS = 110;
   /** RegularExpression Id. */
-  int LSHIFT = 111;
+  int MINUS = 111;
   /** RegularExpression Id. */
-  int PLUSASSIGN = 112;
+  int STAR = 112;
   /** RegularExpression Id. */
-  int MINUSASSIGN = 113;
+  int SLASH = 113;
   /** RegularExpression Id. */
-  int STARASSIGN = 114;
+  int BIT_AND = 114;
   /** RegularExpression Id. */
-  int SLASHASSIGN = 115;
+  int BIT_OR = 115;
   /** RegularExpression Id. */
-  int ANDASSIGN = 116;
+  int XOR = 116;
   /** RegularExpression Id. */
-  int ORASSIGN = 117;
+  int REM = 117;
   /** RegularExpression Id. */
-  int XORASSIGN = 118;
+  int LSHIFT = 118;
   /** RegularExpression Id. */
-  int REMASSIGN = 119;
+  int PLUSASSIGN = 119;
   /** RegularExpression Id. */
-  int LSHIFTASSIGN = 120;
+  int MINUSASSIGN = 120;
   /** RegularExpression Id. */
-  int RSIGNEDSHIFTASSIGN = 121;
+  int STARASSIGN = 121;
   /** RegularExpression Id. */
-  int RUNSIGNEDSHIFTASSIGN = 122;
+  int SLASHASSIGN = 122;
   /** RegularExpression Id. */
-  int ELLIPSIS = 123;
+  int ANDASSIGN = 123;
   /** RegularExpression Id. */
-  int RUNSIGNEDSHIFT = 124;
+  int ORASSIGN = 124;
   /** RegularExpression Id. */
-  int RSIGNEDSHIFT = 125;
+  int XORASSIGN = 125;
   /** RegularExpression Id. */
-  int GT = 126;
+  int REMASSIGN = 126;
   /** RegularExpression Id. */
-  int STUFF_TO_IGNORE = 128;
+  int LSHIFTASSIGN = 127;
+  /** RegularExpression Id. */
+  int RSIGNEDSHIFTASSIGN = 128;
+  /** RegularExpression Id. */
+  int RUNSIGNEDSHIFTASSIGN = 129;
+  /** RegularExpression Id. */
+  int ELLIPSIS = 130;
+  /** RegularExpression Id. */
+  int RUNSIGNEDSHIFT = 131;
+  /** RegularExpression Id. */
+  int RSIGNEDSHIFT = 132;
+  /** RegularExpression Id. */
+  int GT = 133;
+  /** RegularExpression Id. */
+  int STUFF_TO_IGNORE = 135;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -270,59 +284,66 @@ public interface JavaParserConstants {
     "\"*/\"",
     "\"*/\"",
     "<token of kind 11>",
-    "\"abstract\"",
-    "\"assert\"",
-    "\"boolean\"",
-    "\"break\"",
-    "\"byte\"",
-    "\"case\"",
-    "\"catch\"",
-    "\"char\"",
-    "\"class\"",
-    "\"const\"",
-    "\"continue\"",
-    "\"default\"",
-    "\"do\"",
-    "\"double\"",
-    "\"else\"",
-    "\"enum\"",
-    "\"extends\"",
-    "\"false\"",
-    "\"final\"",
-    "\"finally\"",
-    "\"float\"",
-    "\"for\"",
-    "\"goto\"",
-    "\"if\"",
-    "\"implements\"",
-    "\"import\"",
-    "\"instanceof\"",
+    "\"aleatorio\"",
+    "\"algoritmo\"",
+    "\"arquivo\"",
+    "\"asc\"",
+    "\"ate\"",
+    "\"carac\"",
+    "\"caracpnum\"",
+    "\"caractere\"",
+    "\"caso\"",
+    "\"compr\"",
+    "\"copia\"",
+    "\"cronometro\"",
+    "\"debug\"",
+    "\"e\"",
+    "\"eco\"",
+    "\"enquanto\"",
+    "\"entao\"",
+    "\"escolha\"",
+    "\"escreva\"",
+    "\"escreval\"",
+    "\"faca\"",
+    "\"falso\"",
+    "\"fimalgoritmo\"",
+    "\"fimenquanto\"",
+    "\"fimescolha\"",
+    "\"fimfuncao\"",
+    "\"\\tfimpara\"",
+    "\"fimprocedimento\"",
+    "\"fimrepita\"",
+    "\"fimse\"",
+    "\"funcao\"",
+    "\"inicio\"",
     "\"int\"",
-    "\"interface\"",
-    "\"long\"",
-    "\"native\"",
-    "\"new\"",
-    "\"null\"",
-    "\"package\"",
-    "\"private\"",
-    "\"protected\"",
-    "\"public\"",
-    "\"return\"",
-    "\"short\"",
-    "\"static\"",
-    "\"strictfp\"",
-    "\"super\"",
-    "\"switch\"",
-    "\"synchronized\"",
-    "\"this\"",
-    "\"throw\"",
-    "\"throws\"",
-    "\"transient\"",
-    "\"true\"",
-    "\"try\"",
-    "\"void\"",
-    "\"volatile\"",
-    "\"while\"",
+    "\"inteiro\"",
+    "\"interrompa\"",
+    "\"\\tleia\"",
+    "\"limpatela\"",
+    "\"logico\"",
+    "\"maiusc\"",
+    "\"minusc\"",
+    "\"mod\"",
+    "\"nao\"",
+    "\"numpcarac\"",
+    "\"ou\"",
+    "\"outrocaso\"",
+    "\"\\tpara\"",
+    "\"passo\"",
+    "\"pausa\"",
+    "\"pos\"",
+    "\"real\"",
+    "\"procedimento\"",
+    "\"repita\"",
+    "\"retorne\"",
+    "\"se\"",
+    "\"senao\"",
+    "\"timer\"",
+    "\"var\"",
+    "\"vetor\"",
+    "\"verdadeiro\"",
+    "\"xou\"",
     "<INTEGER_LITERAL>",
     "<DECIMAL_LITERAL>",
     "<HEX_LITERAL>",
@@ -387,6 +408,13 @@ public interface JavaParserConstants {
     "\">\"",
     "\"\\u001a\"",
     "<STUFF_TO_IGNORE>",
+    "\"\\\"\"",
+    "\"<-\"",
+    "\"INTEIRO\"",
+    "\"REAL\"",
+    "\"L\\u00c3\\u201cGICO\"",
+    "\"TEXTO\"",
+    "\"CARACTERE\"",
   };
 
 }

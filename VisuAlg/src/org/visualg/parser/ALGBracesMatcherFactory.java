@@ -15,7 +15,7 @@ import org.netbeans.spi.editor.bracesmatching.BracesMatcherFactory;
 import org.netbeans.spi.editor.bracesmatching.MatcherContext;
 import org.netbeans.spi.editor.bracesmatching.support.BracesMatcherSupport;
 
-@MimeRegistration(mimeType = "text/x-sj", service = BracesMatcherFactory.class)
+@MimeRegistration(mimeType = "text/x-alg", service = BracesMatcherFactory.class)
 public class ALGBracesMatcherFactory implements BracesMatcherFactory {
 
     @Override
